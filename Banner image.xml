@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2018-11-01 10:49:49">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>This application will changes the banner image based on logged-in user company logo.</description>
+<inserted/>
+<name>Banner image</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>5c57fb78db21230000f0de90cf9619a0</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-11-01 10:49:48</sys_created_on>
+<sys_id>19414c05db61230000f0de90cf961907</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2018-11-01 10:49:48</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_script_481dff7cdb21230000f0de90cf96197c</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_script"&gt;&lt;sys_ui_script action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;description/&gt;&lt;global&gt;true&lt;/global&gt;&lt;name&gt;Banner Image changing&lt;/name&gt;&lt;script&gt;&lt;![CDATA[bannerImgChange();
+function bannerImgChange(){
+	
+	try{
+		
+		var ga = new GlideAjax('CheckUserRole');
+		ga.addParam('sysparm_name','u_hasRole');
+		ga.addParam('sysparm_role','employee');
+		ga.getXMLWait();
+		if(ga.getAnswer()=="true"){
+			top.document.getElementById('mainBannerImage16').parentNode.style.backgroundImage = 'url(/PK.png)';
+		}else{
+			top.document.getElementById('mainBannerImage16').parentNode.style.backgroundImage = 'url(/wcmc_logo.png)';
+		}
+	}catch(ee){
+		//alert(ee.toString());
+	}
+	
+}
+]]&gt;&lt;/script&gt;&lt;script_name/&gt;&lt;sys_class_name&gt;sys_ui_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-11-01 10:34:13&lt;/sys_created_on&gt;&lt;sys_id&gt;481dff7cdb21230000f0de90cf96197c&lt;/sys_id&gt;&lt;sys_mod_count&gt;4&lt;/sys_mod_count&gt;&lt;sys_name&gt;Banner Image changing&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_script_481dff7cdb21230000f0de90cf96197c&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-11-01 10:47:16&lt;/sys_updated_on&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;use_scoped_format&gt;false&lt;/use_scoped_format&gt;&lt;/sys_ui_script&gt;&lt;/record_update&gt;</payload>
+<payload_hash>618527123</payload_hash>
+<remote_update_set display_value="Banner image">19414c05db61230000f0de90cf961907</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-11-01 10:49:48</sys_created_on>
+<sys_id>95414c05db61230000f0de90cf961908</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>166cee267370000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2018-11-01 10:49:48</sys_updated_on>
+<table/>
+<target_name>Banner Image changing</target_name>
+<type>UI Script</type>
+<update_domain>global</update_domain>
+<update_guid>c8b00405e6612300a89e6b8e8fe564c1</update_guid>
+<update_guid_history>c8b00405e6612300a89e6b8e8fe564c1:618527123,afdfb7b0e2612300d74ae5c9c3351e38:-709186924,bf7ff3b09161230064025765f03fe1a2:1720293815,b11e7ffc5c212300a6330e8f9b801651:1862155736,85bd7f780d212300fcc6e3b22928e49f:1720293815</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_include_e009fbf4db21230000f0de90cf9619dd</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.CheckUserRole&lt;/api_name&gt;&lt;client_callable&gt;true&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;CheckUserRole&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var CheckUserRole = Class.create();  
+CheckUserRole.prototype = Object.extendsObject(AbstractAjaxProcessor, {  
+  u_hasRole: function() {  
+  var role = this.getParameter("sysparm_role");  
+  return gs.hasRole(role);  
+  }  
+});  
+]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-11-01 10:29:56&lt;/sys_created_on&gt;&lt;sys_id&gt;e009fbf4db21230000f0de90cf9619dd&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;CheckUserRole&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_e009fbf4db21230000f0de90cf9619dd&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-11-01 10:29:56&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1612417348</payload_hash>
+<remote_update_set display_value="Banner image">19414c05db61230000f0de90cf961907</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-11-01 10:49:48</sys_created_on>
+<sys_id>d9414c05db61230000f0de90cf961907</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>166ced28bf50000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2018-11-01 10:49:48</sys_updated_on>
+<table/>
+<target_name>CheckUserRole</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_guid>9abc7bb8e821230006f6076326a032ec</update_guid>
+<update_guid_history>9abc7bb8e821230006f6076326a032ec:1612417348</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

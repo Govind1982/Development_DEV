@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2018-11-26 07:47:56">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>ChangeProrityDynamically</description>
+<inserted/>
+<name>ChangeProrityDynamically</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>b2533a444f0023006abd4ebf9310c7e5</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-11-26 07:47:55</sys_created_on>
+<sys_id>786788054f0223006abd4ebf9310c796</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2018-11-26 07:47:55</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_client_63b1f2044f0023006abd4ebf9310c787</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;On Change of field value of Urgency, Priority field needs to be filled.&lt;/description&gt;&lt;field&gt;urgency&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;messages/&gt;&lt;name&gt;Calculate Priority&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	if (isLoading || newValue === '')
+		{
+		return;
+	}
+	var i = g_form.getIntValue('impact');
+	var u = g_form.getIntValue('urgency');
+	alert("Impact Value is :"+i+" &amp; Urgency Value is :"+u);
+	if ( i == 1 &amp;&amp; u == 1){
+		g_form.setValue('priority','1');
+	}
+	if ( i == 1 &amp;&amp; u == 2){
+		g_form.setValue('priority','2');
+	}
+	if ( i == 1 &amp;&amp; u == 3){
+		g_form.setValue('priority','3');
+	}
+	if ( i == 2 &amp;&amp; u == 1){
+		g_form.setValue('priority','2');
+	}
+	if ( i == 2 &amp;&amp; u == 2){
+		g_form.setValue('priority','3');
+	}
+	if ( i == 2 &amp;&amp; u == 3){
+		g_form.setValue('priority','4');
+	}
+	if ( i == 3 &amp;&amp; u == 1){
+		g_form.setValue('priority','3');
+	}
+	if ( i == 3 &amp;&amp; u == 2){
+		g_form.setValue('priority','4');
+	}
+	if ( i == 3 &amp;&amp; u == 3){
+		g_form.setValue('priority','5');
+	}
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-08-16 07:40:59&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;63b1f2044f0023006abd4ebf9310c787&lt;/sys_id&gt;&lt;sys_mod_count&gt;9&lt;/sys_mod_count&gt;&lt;sys_name&gt;Calculate Priority&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_63b1f2044f0023006abd4ebf9310c787&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-08-16 07:53:57&lt;/sys_updated_on&gt;&lt;table&gt;incident&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-622766421</payload_hash>
+<remote_update_set display_value="ChangeProrityDynamically">786788054f0223006abd4ebf9310c796</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-11-26 07:47:55</sys_created_on>
+<sys_id>3c6788054f0223006abd4ebf9310c796</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>16541ba0f030000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2018-11-26 07:47:55</sys_updated_on>
+<table>incident</table>
+<target_name>Calculate Priority</target_name>
+<type>Client Script</type>
+<update_domain>global</update_domain>
+<update_guid>aa96f2c4230023002a9cb247d98867fe</update_guid>
+<update_guid_history>aa96f2c4230023002a9cb247d98867fe:-622766421,0e6672c4730023000a14785691a24dbe:-1007828971,8026768410002300b7fb2f8a1444df75:2082428022,eea5320434002300cef29f7f1cc34105:-1923082599,22d432843f002300b7de06ea06432929:1885757083,5194fa4407002300fc3cd5d5daeac4b2:-1305560348,de54b604ce002300a606ca334fe3d052:-2031936385,f224f2c00a0023005b55602c856856df:-1614705484,13047e048f002300c00d0629bbf67e3b:466900951,a4a3ba0462002300e58260a82ce35122:915031821</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
