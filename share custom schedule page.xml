@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2018-11-18 23:22:18">
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script><![CDATA[try{
+	
+	var change_details_str = "${str}";
+		change_details_str = change_details_str.replace(/%#!/gi, '"');
+		
+		var change_arr_obj = [];
+		
+		
+		var blackout_str = "${strBlackOut}";
+			blackout_str = blackout_str.replace(/%#!/gi, '"');
+			
+			change_details_arr = blackout_str.split('!@#');
+			
+			//    str += "!@#" + myGR.number + "$%^" + myGR.short_description + "$%^" + myGR.start_date.split(' ')[0] + "$%^" + myGR.start_date.split(' ')[1]+ "$%^" + myGR.end_date.split(' ')[0] + "$%^" + myGR.end_date.split(' ')[1];
+			
+			for (var i = 0; i < change_details_arr.length; i++) {
+				var obj = {};
+					var temp = change_details_arr[i].split('$%^');
+					
+					if (temp[0] != undefined && temp[0] != '') {
+						obj.title = temp[0];
+						
+						
+					}
+					if (temp[1] != undefined && temp[1] != '') {
+						obj.start = temp[1].split(' ')[0] + 'T' + temp[1].split(' ')[1];
+						
+						
+					}
+					if (temp[2] != undefined && temp[2] != '') {
+						obj.end = temp[2].split(' ')[0] + 'T' + temp[2].split(' ')[1];
+						
+						
+					}
+					obj.color = "#000000";
+					obj.url = '/cmn_schedule_blackout.do?sys_id=' + temp[3];
+					change_arr_obj.push(obj);
+				}
+				
+				
+				var maint_str = "${strMaint}";
+					maint_str = maint_str.replace(/%#!/gi, '"');
+					
+					change_details_arr = maint_str.split('!@#');
+					
+					//    str += "!@#" + myGR.number + "$%^" + myGR.short_description + "$%^" + myGR.start_date.split(' ')[0] + "$%^" + myGR.start_date.split(' ')[1]+ "$%^" + myGR.end_date.split(' ')[0] + "$%^" + myGR.end_date.split(' ')[1];
+					
+					for (var i = 0; i < change_details_arr.length; i++) {
+						var obj = {};
+							var temp = change_details_arr[i].split('$%^');
+							
+							if (temp[0] != undefined && temp[0] != '') {
+								obj.title = temp[0];
+								
+								
+							}
+							if (temp[1] != undefined && temp[1] != '') {
+								obj.start = temp[1].split(' ')[0] + 'T' + temp[1].split(' ')[1];
+								
+								
+							}
+							if (temp[2] != undefined && temp[2] != '') {
+								obj.end = temp[2].split(' ')[0] + 'T' + temp[2].split(' ')[1];
+								
+								
+							}
+							obj.url = '/cmn_schedule_maintenance.do?sys_id=' + temp[3];
+							obj.color = "#FFA500";
+						
+							change_arr_obj.push(obj);
+						}
+						var change_details_arr = change_details_str.split('!@#');
+						
+						for (var i = 0; i < change_details_arr.length; i++) {
+							var obj = {};
+								var temp = change_details_arr[i].split('$%^');
+								
+								if (temp[0] != undefined && temp[0] != '') {
+									obj.title = temp[0];
+									
+									if (temp[1] != undefined && temp[1] != '') {
+										obj.title = temp[0] + ' - ' + temp[1];
+									}
+								}
+								if (temp[2] != undefined && temp[2] != '') {
+									obj.start = temp[2];
+									
+									if (temp[3] != undefined && temp[3] != '') {
+										obj.start = temp[2] + 'T' + temp[3];
+									}
+								}
+								if (temp[4] != undefined && temp[4] != '') {
+									obj.end = temp[4];
+									
+									if (temp[5] != undefined && temp[5] != '') {
+										obj.end = temp[4] + 'T' + temp[5];
+									}
+								}
+								//obj.color = "#FFA500";
+							
+							if(temp[7]!= undefined && temp[7] != '' ){
+								if(temp[7] == '2'){
+									obj.color = "red";
+								} else if(temp[7] == '3'){
+									obj.color = "#ff66ff";
+								}
+							}
+								obj.url = '/change_request.do?sys_id=' + temp[6];
+								change_arr_obj.push(obj);
+							}
+							jQuery(document).ready(function() {
+								
+								jQuery('#calendar123').fullCalendar({
+									header: {
+										left: 'prev,next today',
+										center: 'title',
+										right: 'agendaDay,agendaWeek,listDay,listWeek,month'
+									},
+									
+									// customize the button names,
+									// otherwise they'd all just say "list"
+									views: {
+										listDay: {
+											buttonText: 'list day'
+										},
+										listWeek: {
+											buttonText: 'list week'
+										}
+									},
+									   // defaultView: 'agendaWeek',
+
+									defaultView: 'month',
+									//  defaultDate: '2018-03-12',
+									navLinks: true, // can click day/week names to navigate views
+									editable: true,
+									eventLimit: true, // allow "more" link when too many events
+									
+									
+									dayRender: function(date, cell) {
+										
+										var maint = maint_str.split('!@#');
+										
+										
+										for (var i = 0; i < maint.length; i++) {
+											var obj = {};
+												var temp = maint[i].split('$%^');
+												
+												
+												if (temp[1] != undefined && temp[1] != '') {
+													var idx = null;
+													var today = new Date(temp[1].split(' ')[0]).toDateString();
+													var ddate = date.toDate().toDateString();
+													
+													if (ddate == today) {
+														idx = cell.index();
+														cell.css("background-color", "orange");
+														jQuery(
+														".fc-time-grid .fc-bg table tbody tr td:nth-child(" +
+														idx + ")").css(
+														"background-color", "orange");
+														
+													}
+													
+													
+												}
+												if (temp[2] != undefined && temp[2] != '') {
+													var idx = null;
+													var today = new Date(temp[2].split(' ')[0]).toDateString();
+													var ddate = date.toDate().toDateString();
+													
+													if (ddate == today) {
+														idx = cell.index();
+														cell.css("background-color", "orange");
+														jQuery(
+														".fc-time-grid .fc-bg table tbody tr td:nth-child(" +
+														idx + ")").css(
+														"background-color", "orange");
+														
+													}
+													
+													
+												}
+												
+											}
+											var blk = blackout_str.split('!@#');
+											
+											
+											for (var i = 0; i < blk.length; i++) {
+												
+												var temp = blk[i].split('$%^');
+												
+												
+												if (temp[1] != undefined && temp[1] != '') {
+													
+													
+													var idx = null;
+													var today = new Date(temp[1].split(' ')[0]).toDateString();
+													var ddate = date.toDate().toDateString();
+													
+													if (ddate == today) {
+														idx = cell.index();
+														cell.css("background-color", "black");
+														jQuery(
+														".fc-time-grid .fc-bg table tbody tr td:nth-child(" +
+														idx + ")").css(
+														"background-color", "black");
+														
+													}
+													
+												}
+												if (temp[2] != undefined && temp[2] != '') {
+													var idx = null;
+													var today = new Date(temp[2].split(' ')[0]).toDateString();
+													var ddate = date.toDate().toDateString();
+													
+													if (ddate == today) {
+														idx = cell.index();
+														cell.css("background-color", "black");
+														jQuery(
+														".fc-time-grid .fc-bg table tbody tr td:nth-child(" +
+														idx + ")").css(
+														"background-color", "black");
+														
+													}
+													
+													
+												}
+												
+											}
+											
+											
+										},
+										events: change_arr_obj
+										
+									});
+									
+									
+								});
+							} catch(e){
+								console.log('a5766f8613f5ab0040057d004244b007 error:'+e);
+							}
+							]]></client_script>
+<description/>
+<direct>false</direct>
+<endpoint/>
+<html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+	<g:evaluate>
+	var myGR = new GlideRecord('change_request');
+myGR.addEncodedQuery("start_dateONThis year@javascript:gs.beginningOfThisYear()@javascript:gs.endOfThisYear()^ORstart_dateONLast year@javascript:gs.beginningOfLastYear()@javascript:gs.endOfLastYear()^ORstart_dateONNext year@javascript:gs.beginningOfNextYear()@javascript:gs.endOfNextYear()^end_dateONThis year@javascript:gs.beginningOfThisYear()@javascript:gs.endOfThisYear()^ORend_dateONLast year@javascript:gs.beginningOfLastYear()@javascript:gs.endOfLastYear()^ORend_dateONNext year@javascript:gs.beginningOfNextYear()@javascript:gs.endOfNextYear()");
+myGR.orderByDesc('number');
+myGR.query();
+
+var str="";
+var str_desc='';
+		var strDate_temp='',endDate_temp='';
+while (myGR.next()) {
+		strDate_temp=new GlideDateTime(myGR.getValue('start_date').toString()).getDisplayValueInternal();
+		endDate_temp=new GlideDateTime(myGR.getValue('end_date').toString()).getDisplayValueInternal();
+		
+		 str_desc= myGR.short_description.toString().replace(/"/g, "%#!");
+		
+    str += "!@#" + myGR.number + "$%^" + str_desc + "$%^" + strDate_temp.split(' ')[0] + "$%^" + strDate_temp.split(' ')[1]+ "$%^" + endDate_temp.split(' ')[0] + "$%^" + endDate_temp.split(' ')[1] + '$%^' + myGR.sys_id+ '$%^' + myGR.risk;
+}
+
+if(str != ''){
+str = str.substring(3);
+}
+		str;
+	</g:evaluate>
+	<g:evaluate>
+
+
+var startSch=new Date().getFullYear()-2+'-'+new Date().getMonth()+'-'+new Date().getDate();
+var endSch=new Date().getFullYear()+2+'-'+new Date().getMonth()+'-'+new Date().getDate();
+
+		
+	//	var grBlackOutSch = new GlideRecord('cmn_schedule_span');
+	var grBlackOutSch = new GlideRecord('cmn_schedule_blackout');
+	//	grBlackOutSch.addEncodedQuery('schedule.sys_class_name=cmn_schedule_blackout');
+grBlackOutSch.query();
+var strBlackOut = '';
+var sch_name='';
+
+while (grBlackOutSch.next()) {
+// sch_name= grBlackOutSch.name.toString().replace(/"/g, "%#!");
+    var scheduleID = grBlackOutSch.sys_id;
+
+    // Initialize schedule based on user's time zone
+    var userTZ = gs.getUser().getTZ();
+    var schedule = new GlideSchedule(scheduleID);
+	//sch_name=schedule.getName().toString().replace(/"/g, "%#!");
+		sch_name=schedule.getName();
+    schedule.setTimeZone(userTZ);
+
+    // Get start and end dates from change request
+    var startDate = new GlideDateTime(startSch);
+    var endDate = new GlideDateTime(endSch);
+
+    // Get schedule spans for change dates
+    var spans = schedule.getSpans(startDate, endDate);
+
+
+
+    // Update Blackout start and end dates in conflict
+    var i = 0;
+    var bool = true;
+    while (bool) {
+        try {
+
+
+            var span = spans.get(i); // Should only be one schedule span
+            var sdate = new GlideDateTime(span.getStart().toString());
+            var edate = new GlideDateTime(span.getEnd().toString());
+       
+
+            strBlackOut = strBlackOut+ '!@#' + sch_name + '$%^' + sdate + '$%^' + edate + '$%^' + grBlackOutSch.sys_id;
+
+            
+            i++;
+
+
+        } catch (e) {
+
+            bool = false;
+        }
+    }
+
+}
+if (strBlackOut != '') {
+    strBlackOut = strBlackOut.substring(3);
+}
+strBlackOut;
+	</g:evaluate>
+	
+	<g:evaluate>
+		var startSch=new Date().getFullYear()-2+'-'+new Date().getMonth()+'-'+new Date().getDate();
+var endSch=new Date().getFullYear()+2+'-'+new Date().getMonth()+'-'+new Date().getDate();
+
+		var grMaintSch = new GlideRecord('cmn_schedule_maintenance');
+		//var grMaintSch = new GlideRecord('cmn_schedule_span');
+		//grMaintSch.addEncodedQuery('schedule.sys_class_name=cmn_schedule_maintenance');
+grMaintSch.query();
+var strMaint = '';
+
+var sch_name='';
+while (grMaintSch.next()) {
+sch_name= grMaintSch.name.toString().replace(/"/g, "%#!");
+
+    var scheduleID = grMaintSch.sys_id;
+
+    // Initialize schedule based on user's time zone
+    var userTZ = gs.getUser().getTZ();
+    var schedule = new GlideSchedule(scheduleID);
+
+    schedule.setTimeZone(userTZ);
+
+    // Get start and end dates from change request
+    var startDate = new GlideDateTime(startSch);
+    var endDate = new GlideDateTime(endSch);
+
+    // Get schedule spans for change dates
+    var spans = schedule.getSpans(startDate, endDate);
+
+
+
+    // Update Blackout start and end dates in conflict
+    var i = 0;
+    var bool = true;
+    while (bool) {
+        try {
+
+
+            var span = spans.get(i); // Should only be one schedule span
+            var sdate = new GlideDateTime(span.getStart().toString());
+            var edate = new GlideDateTime(span.getEnd().toString());
+
+
+            strMaint = strMaint + '!@#' + sch_name + '$%^' + sdate + '$%^' + edate+ '$%^' + grMaintSch.sys_id;
+
+
+            i++;
+
+
+        } catch (e) {
+
+            bool = false;
+        }
+    }
+
+}
+if (strMaint != '') {
+    strMaint = strMaint.substring(3);
+}
+strMaint; 
+		</g:evaluate>
+	<!--
+			<link href="04828952133dab0040057d004244b068.cssdbx?v4" rel="stylesheet" type="text/css" />
+		<link href="a0b2c552133dab0040057d004244b080.cssdbx?v4" rel="stylesheet" type="text/css" media="print" />
+
+	<g:include_script src="fullcalendar.moment.min.js.jsdbx" />
+	<g:include_script src="fullcalendar.jquery.min.js.jsdbx" />
+	<g:include_script src="fullcalendar.min.js.jsdbx" />
+-->
+		<link href="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet"/>
+<link href="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+	
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js"></script>
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+	
+	<style>
+	html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  font-size: 14px;
+}
+
+#calendar {
+  max-width: 900px;
+  margin: 40px auto;
+}
+		.fc-more-popover {
+  width:500px;
+}
+
+.fc-more-popover .fc-event {
+  width:480px;
+}
+
+	</style>
+	
+<div id="calendar123"/>
+</j:jelly>]]></html>
+<name>custom_change_and_maintenance_schedule</name>
+<processing_script/>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>ravio</sys_created_by>
+<sys_created_on>2018-11-17 16:23:32</sys_created_on>
+<sys_id>a5766f8613f5ab0040057d004244b007</sys_id>
+<sys_mod_count>77</sys_mod_count>
+<sys_name>custom_change_and_maintenance_schedule</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sys_ui_page_a5766f8613f5ab0040057d004244b007</sys_update_name>
+<sys_updated_by>ravio</sys_updated_by>
+<sys_updated_on>2018-11-18 23:22:12</sys_updated_on>
+</sys_ui_page>
+</unload>
